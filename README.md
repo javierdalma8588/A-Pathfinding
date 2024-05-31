@@ -14,3 +14,4 @@ Next improvements ideas:
 
 -Add the new unity input system and remove the old input system actions
 
+![Captura](https://github.com/javierdalma8588/A-Pathfinding/assets/59519933/fa56639d-8bf2-43ad-9afc-29b342c9aded)
