@@ -4,7 +4,10 @@ In this repository you can find a sample code of the A*pathfinding algorithm uis
 
 Next improvements ideas:
 -Actually draw the path on a different color not just show it in the UI on the right
+
 -Add different parameters to the spaces (maybe some of them have a bigger or less value of crossing it)
+
 -Add the grid size to the UI so anybody can change the grid parameters
+
 -Adjust the camera to the grid size (the ui is currently anchored so that one is fine)
 
