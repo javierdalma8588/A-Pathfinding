@@ -8,6 +8,26 @@ public class Map : IMap
     private Dictionary<(int, int), ICell> _cells = new Dictionary<(int, int), ICell>();
     //Reusable list
     private List<ICell> _reusableNeighborsList = new List<ICell>();
+    
+    private static readonly int[][] evenRowOffsets = new int[][]
+    {
+        new int[] { +1, 0 },
+        new int[] { 0, -1 },
+        new int[] { -1, -1 },
+        new int[] { -1, 0 },
+        new int[] { -1, +1 },
+        new int[] { 0, +1 }
+    };
+
+    private static readonly int[][] oddRowOffsets = new int[][]
+    {
+        new int[] { +1, 0 },
+        new int[] { +1, -1 },
+        new int[] { 0, -1 },
+        new int[] { -1, 0 },
+        new int[] { 0, +1 },
+        new int[] { +1, +1 }
+    };
 
     public Cell StartCell { get; set; }
     public Cell EndCell { get; set; }
@@ -56,27 +76,6 @@ public class Map : IMap
         _reusableNeighborsList.Clear();
 
         // Define the neighbor offsets based on whether the row (Z coordinate) is even or odd
-        int[][] evenRowOffsets = new int[][]
-        {
-            new int[] { +1, 0 },
-            new int[] { 0, -1 },
-            new int[] { -1, -1 },
-            new int[] { -1, 0 },
-            new int[] { -1, +1 },
-            new int[] { 0, +1 }
-        };
-
-        int[][] oddRowOffsets = new int[][]
-        {
-            new int[] { +1, 0 },
-            new int[] { +1, -1 },
-            new int[] { 0, -1 },
-            new int[] { -1, 0 },
-            new int[] { 0, +1 },
-            new int[] { +1, +1 }
-        };
-
-        // Check if the row is odd or even depending on the z coordinate
         int[][] offsets = (cell.Z % 2 == 0) ? evenRowOffsets : oddRowOffsets;
 
         foreach (var offset in offsets)
@@ -85,8 +84,7 @@ public class Map : IMap
             int neighborZ = cell.Z + offset[1];
 
             ICell neighbor = GetCell(neighborX, neighborZ);
-            // Make sure that the neighbor is walkable
-            if (neighbor != null && neighbor.Walkable)
+            if (neighbor != null && neighbor.Walkable)  // Check if the neighbor is walkable
             {
                 _reusableNeighborsList.Add(neighbor);
             }
