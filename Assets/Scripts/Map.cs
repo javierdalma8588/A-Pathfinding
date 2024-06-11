@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Class onheriting from the IMap interface in charge of handling the map variables
+/// Class inheriting from the IMap interface in charge of handling the map variables
 /// </summary>
 public class Map : IMap
 {
     private Dictionary<(int, int), ICell> _cells = new Dictionary<(int, int), ICell>();
+    //Reusable list
     private List<ICell> _reusableNeighborsList = new List<ICell>();
 
     public Cell StartCell { get; set; }
@@ -51,6 +52,7 @@ public class Map : IMap
     /// <returns></returns>
     public IEnumerable<ICell> GetNeighbors(ICell cell)
     {
+        // clear the list so we can call this function instead of creating a new one every time
         _reusableNeighborsList.Clear();
 
         // Define the neighbor offsets based on whether the row (Z coordinate) is even or odd
