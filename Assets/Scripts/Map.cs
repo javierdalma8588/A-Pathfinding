@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Map : IMap
 {
     private Dictionary<(int, int), ICell> _cells = new Dictionary<(int, int), ICell>();
+    private List<ICell> _reusableNeighborsList = new List<ICell>();
 
     public Cell StartCell { get; set; }
     public Cell EndCell { get; set; }
@@ -50,7 +51,7 @@ public class Map : IMap
     /// <returns></returns>
     public IEnumerable<ICell> GetNeighbors(ICell cell)
     {
-        var neighbors = new List<ICell>();
+        _reusableNeighborsList.Clear();
 
         // Define the neighbor offsets based on whether the row (Z coordinate) is even or odd
         int[][] evenRowOffsets = new int[][]
@@ -85,10 +86,10 @@ public class Map : IMap
             // Make sure that the neighbor is walkable
             if (neighbor != null && neighbor.Walkable)
             {
-                neighbors.Add(neighbor);
+                _reusableNeighborsList.Add(neighbor);
             }
         }
 
-        return neighbors;
+        return _reusableNeighborsList;
     }
 }
