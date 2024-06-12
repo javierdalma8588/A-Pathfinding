@@ -10,7 +10,7 @@ public class AspectRatioCamera : MonoBehaviour
     private Camera _cam;
    
     //I used the iphone 12 as the base aspect ratio
-    private readonly Vector2 _targetAspectRatio = new(19.5f,9);
+    private readonly Vector2 _targetAspectRatio = new(9,19.5f);
     private readonly Vector2 _rectCenter = new(0.5f, 0.5f);
     private Vector2 _lastResolution;
  
