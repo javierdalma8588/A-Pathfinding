@@ -12,10 +12,11 @@ public class PathFinder : IPathFinder
     /// </summary>
     /// <param name="cellStart"></param>
     /// <param name="cellEnd"></param>
+    /// <param name="map"></param>
     /// <returns></returns>
     public IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd, IMap map)
     {
-        map = (Map) GridManager.Instance.MapInterface;
+        map = GridManager.Instance.MapInterface;
         
         // Initialize the open set (priority queue) and closed set (hash set)
         var openSet = new PriorityQueue<Node>();
