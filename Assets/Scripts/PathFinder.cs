@@ -13,9 +13,9 @@ public class PathFinder : IPathFinder
     /// <param name="cellStart"></param>
     /// <param name="cellEnd"></param>
     /// <returns></returns>
-    public IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd)
+    public IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd, IMap map)
     {
-        Map _map = (Map) GridManager.Instance.Map;
+        map = (Map) GridManager.Instance.MapInterface;
         
         // Initialize the open set (priority queue) and closed set (hash set)
         var openSet = new PriorityQueue<Node>();
@@ -43,7 +43,7 @@ public class PathFinder : IPathFinder
             closedSet.Add(currentNode);
 
             // Iterate through the neighbors of the current node
-            foreach (var neighborCell in _map.GetNeighbors(currentNode.Cell))
+            foreach (var neighborCell in map.GetNeighbors(currentNode.Cell))
             {
                 var neighborNode = new Node(neighborCell);
 

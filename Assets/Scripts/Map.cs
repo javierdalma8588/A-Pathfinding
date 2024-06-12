@@ -11,22 +11,22 @@ public class Map : IMap
     
     private static readonly int[][] evenRowOffsets = new int[][]
     {
-        new int[] { +1, 0 },
-        new int[] { 0, -1 },
-        new int[] { -1, -1 },
-        new int[] { -1, 0 },
-        new int[] { -1, +1 },
-        new int[] { 0, +1 }
+        new[] { +1, 0 },
+        new[] { 0, -1 },
+        new[] { -1, -1 },
+        new[] { -1, 0 },
+        new[] { -1, +1 },
+        new[] { 0, +1 }
     };
 
     private static readonly int[][] oddRowOffsets = new int[][]
     {
-        new int[] { +1, 0 },
-        new int[] { +1, -1 },
-        new int[] { 0, -1 },
-        new int[] { -1, 0 },
-        new int[] { 0, +1 },
-        new int[] { +1, +1 }
+        new[] { +1, 0 },
+        new[] { +1, -1 },
+        new[] { 0, -1 },
+        new[] { -1, 0 },
+        new[] { 0, +1 },
+        new[] { +1, +1 }
     };
 
     public Cell StartCell { get; set; }

@@ -5,6 +5,6 @@ using System.Collections.Generic;
 /// </summary>
 public interface IPathFinder
 {
-    IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd);
+    IList<ICell> FindPathOnMap(ICell cellStart, ICell cellEnd, IMap map);
 }
 

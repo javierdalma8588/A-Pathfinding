@@ -8,14 +8,16 @@ using UnityEngine;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
+
+    int Width = 10;
+    int Height = 10;
     
-    public int Width = 10;
-    public int Height = 10;
     public float CellSize = 1f;
-    public GameObject CellPrefab;
-    public IMap Map;
     
-    private IPathFinder _pathFinder;
+    public IMap MapInterface;
+    private IPathFinder PathFinderInterface;
+    [SerializeField]
+    private GameObject _cellPrefab;
 
     /// <summary>
     /// Set the singleton
@@ -30,6 +32,9 @@ public class GridManager : MonoBehaviour
         { 
             Instance = this; 
         } 
+        
+        MapInterface = new Map();
+        PathFinderInterface = new PathFinder();
     }
 
     /// <summary>
@@ -37,7 +42,6 @@ public class GridManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Map = new Map();
         GenerateGrid();
     }
 
@@ -49,6 +53,7 @@ public class GridManager : MonoBehaviour
         // Generate hexagonal grid based on width, height, and cellSize
         float xOffset = 0f;
         float zOffset = 0f;
+        
         for (int x = 0; x < Width; x++)
         {
             for (int z = 0; z < Height; z++)
@@ -63,7 +68,7 @@ public class GridManager : MonoBehaviour
                     xPos += CellSize * Mathf.Sqrt(3f) / 2f;
                 }
                 
-                GameObject hexagon = Instantiate(CellPrefab, new Vector3(xPos + xOffset, 0, zPos + zOffset), Quaternion.identity);
+                GameObject hexagon = Instantiate(_cellPrefab, new Vector3(xPos + xOffset, 0, zPos + zOffset), Quaternion.identity);
                 hexagon.transform.SetParent(transform);
 
                 // Set all the parameters of the cell
@@ -72,7 +77,7 @@ public class GridManager : MonoBehaviour
                 cell.Z = z;
                 cell.Walkable = true;
                 cell.Obstacle = cell.transform.GetChild(1).gameObject;
-                Map.AddCell(cell);
+                MapInterface.AddCell(cell);
                 hexagon.name = x + "," + z;
                 hexagon.GetComponentInChildren<TextMeshPro>().text = x + "," + z;
             }
@@ -84,9 +89,9 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void ResetAll()
     {
-        Map.StartCell = null;
-        Map.EndCell = null;
-        Map.SetAllCellsWalkable();
+        MapInterface.StartCell = null;
+        MapInterface.EndCell = null;
+        MapInterface.SetAllCellsWalkable();
         UIManager.Instance.ResetTextToOriginal();
     }
 
@@ -96,8 +101,7 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void GetPath()
     {
-        _pathFinder = new PathFinder();
-        IList<ICell> path = _pathFinder.FindPathOnMap(Map.StartCell, Map.EndCell);
+        IList<ICell> path = PathFinderInterface.FindPathOnMap(MapInterface.StartCell, MapInterface.EndCell, MapInterface);
         
         if (path != null)
         {

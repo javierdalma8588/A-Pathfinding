@@ -30,7 +30,7 @@ public class Cell : MonoBehaviour, ICell
     /// </summary>
     private void Start()
     {
-        _map = (Map) GridManager.Instance.Map;
+        _map = (Map) GridManager.Instance.MapInterface;
         _renderer = GetComponent<MeshRenderer>();
         _originalColor = _renderer.material.color;
     }
